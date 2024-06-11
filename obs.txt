@@ -1,6 +1,0 @@
-Criar a API do usuario
-
-1° criar um usuario
-2° listar todos os usuarios
-3° Editar um usuario
-4° Deletar um usuario 

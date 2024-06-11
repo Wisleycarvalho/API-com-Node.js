@@ -39,16 +39,36 @@ app.put('/users/:id', async (req, res) => {
     res.send(201).json(req.body)
 });
 
-app.get('/users', async (req, res)=>{
+app.get('/users', async (req, res) => { 
+
+
+    let users = []
     
-    const users = await prisma.user.findMany()
+    if (req.query){
+        users = await prisma.user.findMany({
+            where: {
+                name: req.query.name,
+                email: req.query.email,
+                age: req.query.age
+            }
+        })
+    }else{
+        users = await prisma.user.findMany()
+    }
+
 
     res.status(200).json(users)
 
 });
 
 app.delete('/users/:id', async (req, res) => {
-    await prisma.user.delete
+    await prisma.user.delete({
+        where: {
+            id:  req.params.id,
+        },
+    })
+    res.status(200).json({ message:'O usuário foi deletado!' })
+
 })
 
 app.listen(3000)
